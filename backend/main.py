@@ -41,22 +41,22 @@ def seed_data():
         if db.query(User).count() == 0:
             admin_user = User(
                 username="admin",
-                name="Eliza Vance",
-                hashed_password=get_password_hash("admin123"),
+                name="admin",
+                hashed_password=get_password_hash("admin"),
                 role="admin",
                 pin="1111"
             )
             manager_user = User(
-                username="manager",
-                name="John Doe",
-                hashed_password=get_password_hash("manager123"),
-                role="manager",
+                username="kitchen",
+                name="kitchen",
+                hashed_password=get_password_hash("kitchen"),
+                role="kitchen",
                 pin="2222"
             )
             cashier_user = User(
                 username="cashier",
-                name="Sarah Smith",
-                hashed_password=get_password_hash("cashier123"),
+                name="cashier",
+                hashed_password=get_password_hash("cashier"),
                 role="cashier",
                 pin="3333"
             )
