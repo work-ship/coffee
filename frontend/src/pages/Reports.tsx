@@ -117,71 +117,137 @@ export const Reports: React.FC = () => {
       </div>
 
       {/* Right side: Receipt Auditor View */}
-      <div className="w-96 overflow-y-auto p-6 flex flex-col justify-between" style={{ background: "rgba(255,255,255,0.04)", borderLeft: "1px solid rgba(255,255,255,0.07)" }}>
+      <div className="w-96 overflow-y-auto p-6 flex flex-col justify-between" style={{ background: "rgba(255,255,255,0.02)", borderLeft: "1px solid rgba(255,255,255,0.07)" }}>
         {selectedOrder ? (
           <div className="space-y-6 flex-1 flex flex-col justify-between">
-            <div className="space-y-5">
-              <div className="flex justify-between items-start border-b border-dashed pb-4">
-                <div>
-                  <h3 className="font-bold text-sm text-white">Invoice Audit</h3>
-                  <span className="text-[10px] font-semibold uppercase" style={{ color: "rgba(255,255,255,0.35)" }}>{selectedOrder.order_number}</span>
+            {/* The Receipt Roll Box */}
+            <div className="rounded-2xl p-5 text-neutral-800 text-xs font-mono space-y-4 shadow-xl border border-neutral-250 relative overflow-hidden" style={{ backgroundColor: "#FDFBF7" }}>
+              
+              {/* Paper Top Jagged Edge / Decorator */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 flex overflow-hidden opacity-10">
+                {Array.from({ length: 24 }).map((_, i) => (
+                  <div key={i} className="w-4 h-4 bg-neutral-900 rotate-45 -translate-y-2 flex-shrink-0" />
+                ))}
+              </div>
+
+              {/* Shop Header */}
+              <div className="text-center pt-2 pb-1 border-b border-dashed border-neutral-300">
+                <h3 className="text-sm font-black tracking-widest text-neutral-900">ANTIGRAVITY COFFEE</h3>
+                <p className="text-[10px] text-neutral-500 font-medium">100 Premium Beans Ave.</p>
+                <p className="text-[9px] text-neutral-400">Tel: +212 5XX-XXXXXX</p>
+              </div>
+
+              {/* Metadata */}
+              <div className="space-y-1 text-[10px] text-neutral-600">
+                <div className="flex justify-between">
+                  <span>ORDER:</span>
+                  <span className="font-bold text-neutral-900">{selectedOrder.order_number}</span>
                 </div>
-                <button onClick={handlePrint} className="rounded-xl p-2 transition" style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.5)" }}>
-                  <Printer className="h-4.5 w-4.5" />
-                </button>
+                <div className="flex justify-between">
+                  <span>DATE:</span>
+                  <span>{new Date(selectedOrder.date).toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>PAYMENT:</span>
+                  <span className="uppercase font-bold text-neutral-900">{selectedOrder.payment_method}</span>
+                </div>
+                {selectedOrder.customer_name && (
+                  <div className="flex justify-between">
+                    <span>MEMBER:</span>
+                    <span className="font-bold text-orange-600">{selectedOrder.customer_name}</span>
+                  </div>
+                )}
               </div>
 
               {/* Items List */}
-              <div className="space-y-3.5">
+              <div className="border-t border-b border-dashed border-neutral-300 py-3 space-y-2">
+                <div className="flex justify-between text-[10px] font-bold text-neutral-500">
+                  <span>ITEM DESCRIPTION</span>
+                  <span>TOTAL</span>
+                </div>
                 {selectedOrder.items.map((item: any) => (
-                  <div key={item.id} className="text-xs font-semibold flex justify-between" style={{ color: "rgba(255,255,255,0.7)" }}>
-                    <div>
-                      <span className="block">{item.quantity}x {item.product_name}</span>
-                      {item.selected_variant && <span className="block text-[9px] text-neutral-400">Size: {item.selected_variant}</span>}
+                  <div key={item.id} className="space-y-0.5">
+                    <div className="flex justify-between text-neutral-900">
+                      <span>{item.quantity}x {item.product_name}</span>
+                      <span className="font-bold">{(item.price * item.quantity).toFixed(2)} DH</span>
                     </div>
-                    <span>{(item.price * item.quantity).toFixed(2)} DH</span>
+                    {item.selected_variant && (
+                      <div className="text-[9px] text-neutral-400 pl-4">
+                        ↳ Option: {item.selected_variant}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
 
               {/* Totals Breakdown */}
-              <div className="space-y-2 border-t pt-4 text-xs font-semibold" style={{ borderColor: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.4)" }}>
+              <div className="space-y-1.5 text-neutral-600">
                 <div className="flex justify-between">
-                  <span>Subtotal</span>
-                  <span className="text-white">{selectedOrder.subtotal.toFixed(2)} DH</span>
+                  <span>SUBTOTAL</span>
+                  <span>{selectedOrder.subtotal.toFixed(2)} DH</span>
                 </div>
                 {selectedOrder.discount > 0 && (
-                  <div className="flex justify-between text-rose-500">
-                    <span>Discount Coupon</span>
+                  <div className="flex justify-between text-rose-600 font-bold">
+                    <span>DISCOUNT COUPON</span>
                     <span>-{selectedOrder.discount.toFixed(2)} DH</span>
                   </div>
                 )}
                 <div className="flex justify-between">
-                  <span>Sales Tax</span>
-                  <span className="text-white">{selectedOrder.tax.toFixed(2)} DH</span>
+                  <span>TAX (8%)</span>
+                  <span>{selectedOrder.tax.toFixed(2)} DH</span>
                 </div>
-                <div className="flex justify-between text-sm font-extrabold pt-2 border-t border-dashed text-white" style={{ borderColor: "rgba(255,255,255,0.12)" }}>
-                  <span>Total Amount Paid</span>
+                <div className="flex justify-between text-sm font-black text-neutral-900 pt-2 border-t border-dashed border-neutral-300">
+                  <span>TOTAL DUE</span>
                   <span>{selectedOrder.total.toFixed(2)} DH</span>
                 </div>
               </div>
+
+              {/* Footer Messages / Barcode */}
+              <div className="text-center pt-3 border-t border-dashed border-neutral-300 space-y-3">
+                <p className="text-[10px] text-neutral-500 font-medium tracking-wide">THANK YOU FOR YOUR VISIT!</p>
+                
+                {/* Simulated Barcode */}
+                <div className="flex justify-center items-center gap-0.5 h-7 opacity-75">
+                  {[3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5, 8, 9, 7, 9, 3, 2, 3, 8].map((w, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-neutral-900 h-full"
+                      style={{ width: `${(w % 3) + 1}px` }}
+                    />
+                  ))}
+                </div>
+                <p className="text-[8px] text-neutral-400 tracking-widest">{selectedOrder.order_number}</p>
+              </div>
+
             </div>
 
-            {selectedOrder.status !== "refunded" && (
+            {/* Quick Actions Panel */}
+            <div className="space-y-2">
               <button
-                onClick={() => handleRefund(selectedOrder.id)}
-                className="w-full text-white font-bold py-3.5 rounded-2xl transition text-xs flex items-center justify-center gap-2 mt-6"
-                style={{ background: "rgba(244,63,94,0.2)", border: "1px solid rgba(244,63,94,0.3)", color: "#f87171" }}
+                onClick={handlePrint}
+                className="w-full text-white font-bold py-3 px-4 rounded-xl transition text-xs flex items-center justify-center gap-2"
+                style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)" }}
               >
-                Void Transaction & Refund
+                <Printer className="h-4 w-4" />
+                Print Physical Receipt
               </button>
-            )}
+
+              {selectedOrder.status !== "refunded" && (
+                <button
+                  onClick={() => handleRefund(selectedOrder.id)}
+                  className="w-full text-white font-bold py-3.5 rounded-xl transition text-xs flex items-center justify-center gap-2"
+                  style={{ background: "rgba(244,63,94,0.15)", border: "1px solid rgba(244,63,94,0.25)", color: "#f87171" }}
+                >
+                  Void Transaction & Refund
+                </button>
+              )}
+            </div>
           </div>
         ) : (
-          <div className="h-full flex flex-col items-center justify-center text-center p-6 text-neutral-400">
-            <Receipt className="h-10 w-10 text-neutral-350" />
-            <p className="text-sm font-semibold mt-2.5">No invoice selected</p>
-            <p className="text-xs text-neutral-400 mt-1 max-w-[200px]">Choose a receipt from the registry to inspect payment details.</p>
+          <div className="h-full flex flex-col items-center justify-center text-center p-6 text-neutral-450">
+            <Receipt className="h-10 w-10 text-neutral-500 opacity-60 mb-2" />
+            <p className="text-sm font-semibold text-white">No invoice selected</p>
+            <p className="text-xs text-neutral-500 mt-1 max-w-[200px]">Choose a receipt from the registry to inspect payment details.</p>
           </div>
         )}
       </div>

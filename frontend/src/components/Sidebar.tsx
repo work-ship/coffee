@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { useApp } from "../context/AppContext";
 import {
   Coffee, Flame, CupSoda, GlassWater, IceCream, Cake,
@@ -34,7 +34,7 @@ const sidebarVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, x: -10 },
-  visible: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
+  visible: { opacity: 1, x: 0, transition: { type: "spring" as const, stiffness: 300, damping: 24 } },
 };
 
 export const Sidebar: React.FC<SidebarProps> = ({ selectedCategoryId, setSelectedCategoryId }) => {

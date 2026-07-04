@@ -9,7 +9,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { api } from "../utils/api";
 
 interface CartPanelProps {
-  onSuccess: (orderNum: string) => void;
+  onSuccess: (orderNum: string, orderDetails: any) => void;
 }
 
 /** Shortcut badge pill */

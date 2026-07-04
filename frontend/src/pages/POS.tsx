@@ -23,6 +23,7 @@ export const POS: React.FC<POSProps> = ({ searchQuery, selectedCategoryId }) => 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
   const [successOrderId, setSuccessOrderId] = useState("");
+  const [successOrderDetails, setSuccessOrderDetails] = useState<any>(null);
 
   const handleProductSelect = (product: Product) => {
     if (
@@ -36,8 +37,9 @@ export const POS: React.FC<POSProps> = ({ searchQuery, selectedCategoryId }) => 
     }
   };
 
-  const handleCheckoutSuccess = (orderId: string) => {
+  const handleCheckoutSuccess = (orderId: string, orderDetails: any) => {
     setSuccessOrderId(orderId);
+    setSuccessOrderDetails(orderDetails);
     setIsSuccessOpen(true);
   };
 
@@ -121,8 +123,9 @@ export const POS: React.FC<POSProps> = ({ searchQuery, selectedCategoryId }) => 
 
       <CheckoutSuccessModal
         isOpen={isSuccessOpen}
-        onClose={() => { setIsSuccessOpen(false); setSuccessOrderId(""); }}
+        onClose={() => { setIsSuccessOpen(false); setSuccessOrderId(""); setSuccessOrderDetails(null); }}
         orderNumber={successOrderId}
+        orderDetails={successOrderDetails}
       />
     </div>
   );
