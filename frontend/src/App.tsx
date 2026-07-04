@@ -29,7 +29,7 @@ const AppContent: React.FC = () => {
   }
 
   return (
-    <div className={`flex h-screen w-screen flex-col overflow-hidden bg-neutral-50 dark:bg-neutral-950 transition-colors`}>
+    <div className={`flex h-screen w-screen flex-col overflow-hidden`} style={{ background: "#0f0f17" }}>
       {/* Top Header */}
       <Topbar ref={searchInputRef} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 

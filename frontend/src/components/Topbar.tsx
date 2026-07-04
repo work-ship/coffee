@@ -1,8 +1,8 @@
-import React, { useState, forwardRef, useCallback } from "react";
+﻿import React, { useState, forwardRef, useCallback } from "react";
 import { useApp } from "../context/AppContext";
 import {
   Search, RotateCw, Printer,
-  LogOut, Coffee, Sun, Moon, X,
+  LogOut, Coffee, X,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -11,17 +11,16 @@ interface TopbarProps {
   setSearchQuery: (q: string) => void;
 }
 
-/** Visual keyboard shortcut pill */
 const Key: React.FC<{ k: string }> = ({ k }) => (
-  <kbd className="inline-flex items-center justify-center rounded-md border border-neutral-200 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 text-[9px] font-black text-neutral-400 dark:text-neutral-500 tracking-wider font-mono shadow-sm ml-1">
+  <kbd className="inline-flex items-center justify-center rounded-md px-1.5 py-0.5 text-[9px] font-black tracking-wider font-mono leading-none ml-1"
+    style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.3)" }}>
     {k}
   </kbd>
 );
 
-// Forward the search input ref so the keyboard shortcut hook can .focus() it
 export const Topbar = forwardRef<HTMLInputElement, TopbarProps>(
   ({ searchQuery, setSearchQuery }, ref) => {
-    const { user, handleLogout, refreshData, showNotification, darkMode, toggleDarkMode } = useApp();
+    const { user, handleLogout, refreshData, showNotification } = useApp();
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -38,36 +37,56 @@ export const Topbar = forwardRef<HTMLInputElement, TopbarProps>(
       }
     }, [isRefreshing, refreshData, showNotification]);
 
-    return (
-      <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-neutral-200 dark:border-neutral-800 bg-white/95 dark:bg-neutral-900/95 px-6 backdrop-blur-md">
+    const initials = user?.name?.slice(0, 2).toUpperCase() ?? "AG";
 
-        {/* ── Brand ── */}
-        <div className="flex items-center gap-2.5 shrink-0">
+    return (
+      <header
+        className="sticky top-0 z-30 flex h-16 w-full items-center justify-between px-6"
+        style={{
+          background: "rgba(15,15,23,0.92)",
+          borderBottom: "1px solid rgba(255,255,255,0.07)",
+          backdropFilter: "blur(20px)",
+        }}
+      >
+        {/* Brand */}
+        <div className="flex items-center gap-3 shrink-0">
           <motion.div
             whileHover={{ rotate: [0, -10, 10, 0], scale: 1.05 }}
             transition={{ duration: 0.4 }}
-            className="flex h-10 w-10 items-center justify-center rounded-2xl bg-orange-500 text-white shadow-md shadow-orange-500/30"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-lg"
+            style={{ background: "linear-gradient(135deg, #FF6B35, #FF9F1C)", boxShadow: "0 4px 14px rgba(255,107,53,0.35)" }}
           >
-            <Coffee className="h-5 w-5" />
+            <Coffee className="h-4.5 w-4.5" />
           </motion.div>
           <div>
-            <span className="block font-bold text-neutral-900 dark:text-white leading-none">Antigravity</span>
-            <span className="text-[10px] font-semibold text-orange-500 uppercase tracking-widest mt-0.5 block">POS Suite</span>
+            <span className="block font-bold text-white leading-none text-sm">Antigravity</span>
+            <span className="text-[9px] font-bold uppercase tracking-widest mt-0.5 block" style={{ color: "#FF6B35" }}>POS Suite</span>
           </div>
         </div>
 
-        {/* ── Search ── */}
+        {/* Search */}
         <div className="relative w-full max-w-md mx-6">
-          <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+          <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 pointer-events-none" style={{ color: "rgba(255,255,255,0.25)" }} />
           <input
             ref={ref}
             type="text"
-            placeholder="Search products or scan barcode…"
+            placeholder="Search products…"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 py-2.5 pl-11 pr-10 text-sm text-neutral-800 dark:text-white placeholder-neutral-400 dark:placeholder-neutral-500 outline-none hover:bg-neutral-100/50 dark:hover:bg-neutral-700/50 focus:border-orange-500 focus:bg-white dark:focus:bg-neutral-800 focus:ring-2 focus:ring-orange-100 dark:focus:ring-orange-900/30 transition"
+            className="w-full rounded-2xl py-2.5 pl-11 pr-10 text-sm font-medium text-white placeholder-white/25 outline-none transition-all"
+            style={{
+              background: "rgba(255,255,255,0.06)",
+              border: "1px solid rgba(255,255,255,0.09)",
+            }}
+            onFocus={(e) => {
+              e.target.style.borderColor = "rgba(255,107,53,0.55)";
+              e.target.style.background = "rgba(255,255,255,0.09)";
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = "rgba(255,255,255,0.09)";
+              e.target.style.background = "rgba(255,255,255,0.06)";
+            }}
           />
-          {/* Clear button */}
           <AnimatePresence>
             {searchQuery && (
               <motion.button
@@ -75,13 +94,13 @@ export const Topbar = forwardRef<HTMLInputElement, TopbarProps>(
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.7 }}
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-0.5 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition"
+                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-0.5 transition"
+                style={{ color: "rgba(255,255,255,0.35)" }}
               >
                 <X className="h-3.5 w-3.5" />
               </motion.button>
             )}
           </AnimatePresence>
-          {/* Keyboard hint */}
           {!searchQuery && (
             <span className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
               <Key k="F" />
@@ -89,63 +108,48 @@ export const Topbar = forwardRef<HTMLInputElement, TopbarProps>(
           )}
         </div>
 
-        {/* ── Actions ── */}
+        {/* Actions */}
         <div className="flex items-center gap-1 shrink-0">
-
-          {/* Dark mode toggle */}
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={toggleDarkMode}
-            title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-            className="rounded-xl p-2.5 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-white transition relative overflow-hidden"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={darkMode ? "sun" : "moon"}
-                initial={{ opacity: 0, rotate: -45, scale: 0.7 }}
-                animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                exit={{ opacity: 0, rotate: 45, scale: 0.7 }}
-                transition={{ duration: 0.2 }}
-                className="block"
-              >
-                {darkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </motion.span>
-            </AnimatePresence>
-          </motion.button>
 
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={handleRefresh}
             title="Refresh data"
-            className="rounded-xl p-2.5 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-white transition"
+            className="rounded-xl p-2.5 transition"
+            style={{ color: "rgba(255,255,255,0.4)" }}
           >
-            <RotateCw className={`h-5 w-5 transition-transform ${isRefreshing ? "animate-spin" : ""}`} />
+            <RotateCw className={`h-4.5 w-4.5 transition-transform ${isRefreshing ? "animate-spin" : ""}`} />
           </motion.button>
 
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => window.print()}
-            title="Print receipt"
-            className="rounded-xl p-2.5 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-white transition"
+            title="Print"
+            className="rounded-xl p-2.5 transition"
+            style={{ color: "rgba(255,255,255,0.4)" }}
           >
-            <Printer className="h-5 w-5" />
+            <Printer className="h-4.5 w-4.5" />
           </motion.button>
 
-          <div className="h-6 w-px bg-neutral-200 dark:bg-neutral-700 mx-1" />
+          <div className="h-5 w-px mx-1" style={{ background: "rgba(255,255,255,0.09)" }} />
 
-          {/* Profile dropdown */}
+          {/* Profile */}
           <div className="relative">
             <motion.button
               whileTap={{ scale: 0.97 }}
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="flex items-center gap-2.5 rounded-2xl bg-neutral-50 dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 p-1.5 pr-3 border border-neutral-150 dark:border-neutral-700 transition"
+              className="flex items-center gap-2.5 rounded-2xl p-1.5 pr-3 transition"
+              style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.09)" }}
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-orange-400 to-rose-500 text-white font-bold text-sm shadow-sm">
-                {user?.name?.slice(0, 2).toUpperCase() ?? "CO"}
+              <div
+                className="flex h-7 w-7 items-center justify-center rounded-xl text-white font-bold text-xs shadow-sm"
+                style={{ background: "linear-gradient(135deg, #FF6B35, #FF9F1C)" }}
+              >
+                {initials}
               </div>
               <div className="hidden text-left md:block">
-                <span className="block text-xs font-semibold text-neutral-800 dark:text-white leading-tight">{user?.name ?? "Cashier"}</span>
-                <span className="block text-[9px] font-semibold text-neutral-400 dark:text-neutral-500 capitalize">{user?.role ?? "User"}</span>
+                <span className="block text-xs font-semibold text-white leading-tight">{user?.name ?? "User"}</span>
+                <span className="block text-[9px] font-semibold capitalize" style={{ color: "rgba(255,255,255,0.35)" }}>{user?.role ?? "—"}</span>
               </div>
             </motion.button>
 
@@ -156,18 +160,23 @@ export const Topbar = forwardRef<HTMLInputElement, TopbarProps>(
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -8, scale: 0.95 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute right-0 mt-2 w-52 rounded-2xl border border-neutral-150 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-2.5 shadow-xl z-50"
+                  className="absolute right-0 mt-2 w-52 rounded-2xl p-2.5 shadow-2xl z-50"
+                  style={{ background: "#1a1a24", border: "1px solid rgba(255,255,255,0.09)" }}
                 >
-                  <div className="border-b border-neutral-100 dark:border-neutral-700 px-3 pb-3 pt-1.5 mb-1">
-                    <p className="text-[10px] font-semibold text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">Logged In</p>
-                    <p className="text-sm font-bold text-neutral-800 dark:text-white mt-0.5">{user?.name}</p>
-                    <span className="text-[10px] font-bold bg-orange-100 dark:bg-orange-900/40 text-orange-600 dark:text-orange-400 px-2 py-0.5 rounded-full capitalize">
+                  <div className="px-3 pb-3 pt-1.5 mb-1" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+                    <p className="text-[10px] font-semibold uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.3)" }}>Logged In</p>
+                    <p className="text-sm font-bold text-white">{user?.name}</p>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full capitalize mt-1 inline-block"
+                      style={{ background: "rgba(255,107,53,0.15)", color: "#FF6B35", border: "1px solid rgba(255,107,53,0.25)" }}>
                       {user?.role}
                     </span>
                   </div>
                   <button
                     onClick={handleLogout}
-                    className="mt-1 flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition"
+                    className="mt-1 flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-left text-sm font-semibold transition"
+                    style={{ color: "rgba(248,113,113,0.9)" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(239,68,68,0.1)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
                   >
                     <LogOut className="h-4 w-4" />
                     Sign Out

@@ -141,12 +141,12 @@ export const Inventory: React.FC = () => {
   };
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 bg-neutral-50/50">
+    <div className="flex-1 overflow-y-auto p-6" style={{ background: "#0f0f17" }}>
       {/* Title */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="font-extrabold text-2xl text-neutral-800 tracking-tight">Product Inventory</h1>
-          <p className="text-xs text-neutral-450 font-semibold font-medium">Update prices and variants</p>
+          <h1 className="font-extrabold text-2xl text-white tracking-tight">Product Inventory</h1>
+          <p className="text-xs font-semibold font-medium" style={{ color: "rgba(255,255,255,0.3)" }}>Update prices and variants</p>
         </div>
         <button
           onClick={() => { resetForm(); setIsFormOpen(true); }}
@@ -160,9 +160,9 @@ export const Inventory: React.FC = () => {
       {isFormOpen ? (
         /* Add/Edit Product Panel Split view */
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <form onSubmit={handleSaveProduct} className="lg:col-span-2 bg-white p-6 rounded-3xl border border-neutral-150 shadow-sm space-y-4">
+          <form onSubmit={handleSaveProduct} className="lg:col-span-2 p-6 rounded-3xl space-y-4" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
             <div className="flex items-center justify-between border-b pb-3 mb-4">
-              <span className="font-bold text-neutral-850 text-base">{editingProduct ? `Edit ${editingProduct.name}` : "Create New Coffee/Food"}</span>
+              <span className="font-bold text-white text-base">{editingProduct ? `Edit ${editingProduct.name}` : "Create New Product"}</span>
               <button type="button" onClick={() => { setIsFormOpen(false); resetForm(); }} className="text-neutral-400 hover:text-neutral-650">
                 <X className="h-5 w-5" />
               </button>
@@ -170,12 +170,12 @@ export const Inventory: React.FC = () => {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-neutral-450 uppercase tracking-wider mb-1">Product Name</label>
-                <input type="text" required value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-xl border border-neutral-200 p-2.5 text-sm" placeholder="Cappuccino Regular" />
+                <label className="block text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.3)" }}>Product Name</label>
+                <input type="text" required value={name} onChange={(e) => setName(e.target.value)} className="w-full rounded-xl p-2.5 text-sm text-white" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }} placeholder="Cappuccino Regular" />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-neutral-450 uppercase tracking-wider mb-1">Category</label>
-                <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} className="w-full rounded-xl border border-neutral-200 p-2.5 text-sm">
+                <label className="block text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.3)" }}>Category</label>
+                <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} className="w-full rounded-xl p-2.5 text-sm text-white" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }}>
                   {categories.map((c) => (
                     <option key={c.id} value={c.id}>{c.name}</option>
                   ))}
@@ -184,24 +184,24 @@ export const Inventory: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-neutral-450 uppercase tracking-wider mb-1">Description</label>
-              <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="w-full rounded-xl border border-neutral-200 p-2.5 text-sm h-20" placeholder="Steamed microfoam poured over double shot espresso..." />
+              <label className="block text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.3)" }}>Description</label>
+              <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="w-full rounded-xl p-2.5 text-sm h-20 text-white" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }} placeholder="Steamed microfoam poured over double shot espresso..." />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-neutral-450 uppercase tracking-wider mb-1">Price (DH)</label>
-                <input type="number" step="0.01" required value={price} onChange={(e) => setPrice(e.target.value)} className="w-full rounded-xl border border-neutral-200 p-2.5 text-sm" placeholder="4.50" />
+                <label className="block text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.3)" }}>Price (DH)</label>
+                <input type="number" step="0.01" required value={price} onChange={(e) => setPrice(e.target.value)} className="w-full rounded-xl p-2.5 text-sm text-white" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }} placeholder="4.50" />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-neutral-450 uppercase tracking-wider mb-1">Promo Price (DH)</label>
-                <input type="number" step="0.01" value={discountPrice} onChange={(e) => setDiscountPrice(e.target.value)} className="w-full rounded-xl border border-neutral-200 p-2.5 text-sm" placeholder="3.99" />
+                <label className="block text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.3)" }}>Promo Price (DH)</label>
+                <input type="number" step="0.01" value={discountPrice} onChange={(e) => setDiscountPrice(e.target.value)} className="w-full rounded-xl p-2.5 text-sm text-white" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }} placeholder="3.99" />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-neutral-450 uppercase tracking-wider mb-1">Product Image URL</label>
-              <input type="url" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} className="w-full rounded-xl border border-neutral-200 p-2.5 text-sm" placeholder="https://images.unsplash.com/... or blank" />
+              <label className="block text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.3)" }}>Product Image URL</label>
+              <input type="url" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} className="w-full rounded-xl p-2.5 text-sm text-white" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }} placeholder="https://images.unsplash.com/..." />
             </div>
 
             <div className="flex items-center gap-2.5 pt-2">
@@ -220,7 +220,7 @@ export const Inventory: React.FC = () => {
           </form>
 
           {/* Variants and Extras configuration details */}
-          <div className="bg-white p-6 rounded-3xl border border-neutral-150 shadow-sm space-y-6">
+          <div className="p-6 rounded-3xl space-y-6" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
             <div>
               <h3 className="font-bold text-neutral-800 text-sm">Product Variants</h3>
               <p className="text-[10px] text-neutral-400 font-semibold uppercase">Sizes or Milks configurations</p>
@@ -274,11 +274,11 @@ export const Inventory: React.FC = () => {
         </div>
       ) : (
         /* Inventory Table List */
-        <div className="bg-white rounded-3xl border border-neutral-150 shadow-sm overflow-hidden">
+        <div className="rounded-3xl overflow-hidden" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-left">
               <thead>
-                <tr className="bg-neutral-50 border-b border-neutral-150 text-[10px] font-extrabold text-neutral-450 uppercase tracking-widest">
+                <tr className="border-b text-[10px] font-extrabold uppercase tracking-widest" style={{ background: "rgba(255,255,255,0.03)", borderColor: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.3)" }}>
                   <th className="px-6 py-4.5">Product Name</th>
                   <th className="px-6 py-4.5">Category</th>
                   <th className="px-6 py-4.5">Base Price</th>
@@ -287,11 +287,11 @@ export const Inventory: React.FC = () => {
                   <th className="px-6 py-4.5 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-neutral-100 text-sm font-semibold text-neutral-700">
+              <tbody className="divide-y text-sm font-semibold" style={{ borderColor: "rgba(255,255,255,0.05)", color: "rgba(255,255,255,0.75)" }}>
                 {products.map((p) => {
                   const cat = categories.find((c) => c.id === p.category_id);
                   return (
-                    <tr key={p.id} className="hover:bg-neutral-50/50 transition">
+                    <tr key={p.id} className="transition" onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.03)")} onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}>
                       <td className="px-6 py-4.5">
                         <div className="flex items-center gap-3">
                           {p.image_url && <img src={p.image_url} alt={p.name} className="h-9 w-9 rounded-xl object-cover" />}

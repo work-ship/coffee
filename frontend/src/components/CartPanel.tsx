@@ -14,7 +14,8 @@ interface CartPanelProps {
 
 /** Shortcut badge pill */
 const Key: React.FC<{ k: string }> = ({ k }) => (
-  <kbd className="inline-flex items-center justify-center rounded-md border border-neutral-200 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 text-[9px] font-black text-neutral-500 dark:text-neutral-400 tracking-wider font-mono shadow-sm ml-1.5">
+  <kbd className="inline-flex items-center justify-center rounded-md px-1.5 py-0.5 text-[9px] font-black tracking-wider font-mono shadow-sm ml-1.5"
+    style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.3)" }}>
     {k}
   </kbd>
 );
@@ -97,18 +98,18 @@ export const CartPanel: React.FC<CartPanelProps> = ({ onSuccess }) => {
   const orderDateStr = new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 
   return (
-    <div className="w-96 border-l border-neutral-150 dark:border-neutral-800 bg-white dark:bg-neutral-900 flex flex-col h-[calc(100vh-4rem)]">
+    <div className="w-96 flex flex-col h-[calc(100vh-4rem)]" style={{ background: "#111118", borderLeft: "1px solid rgba(255,255,255,0.07)" }}>
 
       {/* ── Header ── */}
-      <div className="p-4 border-b border-neutral-100 dark:border-neutral-800 space-y-3 bg-neutral-50/60 dark:bg-neutral-900/60">
+      <div className="p-4 space-y-3" style={{ borderBottom: "1px solid rgba(255,255,255,0.07)", background: "rgba(255,255,255,0.03)" }}>
         <div className="flex items-center justify-between">
           <div>
-            <span className="block text-[10px] font-semibold text-neutral-400 uppercase tracking-wider">Active Register</span>
-            <span className="text-sm font-bold text-neutral-800 dark:text-white">New Order</span>
+            <span className="block text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>Active Register</span>
+            <span className="text-sm font-bold text-white">New Order</span>
           </div>
           <div className="text-right">
-            <span className="block text-[10px] font-semibold text-neutral-400 uppercase tracking-wider">Date</span>
-            <span className="text-xs font-bold text-neutral-700 dark:text-white">{orderDateStr}</span>
+            <span className="block text-[10px] font-bold uppercase tracking-widest" style={{ color: "rgba(255,255,255,0.3)" }}>Date</span>
+            <span className="text-xs font-bold text-white">{orderDateStr}</span>
           </div>
         </div>
 
