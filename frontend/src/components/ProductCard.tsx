@@ -1,5 +1,5 @@
 import React from "react";
-import { Star, AlertTriangle, Plus } from "lucide-react";
+import { Star, Plus } from "lucide-react";
 import { Product } from "../context/AppContext";
 import { motion } from "framer-motion";
 
@@ -9,8 +9,8 @@ interface ProductCardProps {
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) => {
-  const isOutOfStock = false;
-  const isLowStock = false;
+
+
   const hasDiscount = product.discount_price !== null && product.discount_price !== undefined;
   const discountPct = hasDiscount
     ? Math.round(((product.price - (product.discount_price ?? 0)) / product.price) * 100)
@@ -86,11 +86,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect }) =
           <div className="flex items-baseline gap-1.5">
             {hasDiscount ? (
               <>
-                <span className="text-base font-extrabold text-neutral-900">${product.discount_price?.toFixed(2)}</span>
-                <span className="text-xs text-neutral-400 line-through font-medium">${product.price.toFixed(2)}</span>
+                <span className="text-base font-extrabold text-neutral-900">{product.discount_price?.toFixed(2)} DH</span>
+                <span className="text-xs text-neutral-400 line-through font-medium">{product.price.toFixed(2)} DH</span>
               </>
             ) : (
-              <span className="text-base font-extrabold text-neutral-900">${product.price.toFixed(2)}</span>
+              <span className="text-base font-extrabold text-neutral-900">{product.price.toFixed(2)} DH</span>
             )}
           </div>
 

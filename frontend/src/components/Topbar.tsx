@@ -1,10 +1,9 @@
 import React, { useState, forwardRef, useCallback } from "react";
 import { useApp } from "../context/AppContext";
 import {
-  Search, Calculator, RotateCw, Bell, Printer,
+  Search, RotateCw, Printer,
   LogOut, Coffee, Sun, Moon, X,
 } from "lucide-react";
-import { CalculatorModal } from "./CalculatorModal";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface TopbarProps {
@@ -23,7 +22,6 @@ const Key: React.FC<{ k: string }> = ({ k }) => (
 export const Topbar = forwardRef<HTMLInputElement, TopbarProps>(
   ({ searchQuery, setSearchQuery }, ref) => {
     const { user, handleLogout, refreshData, showNotification, darkMode, toggleDarkMode } = useApp();
-    const [isCalcOpen, setIsCalcOpen] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -117,33 +115,11 @@ export const Topbar = forwardRef<HTMLInputElement, TopbarProps>(
 
           <motion.button
             whileTap={{ scale: 0.9 }}
-            onClick={() => setIsCalcOpen(true)}
-            title="Calculator"
-            className="rounded-xl p-2.5 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-white transition"
-          >
-            <Calculator className="h-5 w-5" />
-          </motion.button>
-
-          <motion.button
-            whileTap={{ scale: 0.9 }}
             onClick={handleRefresh}
             title="Refresh data"
             className="rounded-xl p-2.5 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-white transition"
           >
             <RotateCw className={`h-5 w-5 transition-transform ${isRefreshing ? "animate-spin" : ""}`} />
-          </motion.button>
-
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            title="Alerts"
-            className="relative rounded-xl p-2.5 text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-800 dark:hover:text-white transition"
-          >
-            <Bell className="h-5 w-5" />
-            <motion.span
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="absolute top-2 right-2 h-2 w-2 rounded-full bg-rose-500 border-2 border-white dark:border-neutral-900 pulse-ring"
-            />
           </motion.button>
 
           <motion.button
@@ -201,8 +177,6 @@ export const Topbar = forwardRef<HTMLInputElement, TopbarProps>(
             </AnimatePresence>
           </div>
         </div>
-
-        <CalculatorModal isOpen={isCalcOpen} onClose={() => setIsCalcOpen(false)} />
       </header>
     );
   }

@@ -100,7 +100,7 @@ export const Reports: React.FC = () => {
                   </div>
                 </div>
                 <div className="text-right">
-                  <span className="block font-black text-sm text-neutral-800">${o.total.toFixed(2)}</span>
+                  <span className="block font-black text-sm text-neutral-800">{o.total.toFixed(2)} DH</span>
                   <span className="block text-[10px] text-neutral-400 capitalize font-bold">{o.payment_method}</span>
                 </div>
               </div>
@@ -132,7 +132,7 @@ export const Reports: React.FC = () => {
                       <span className="block">{item.quantity}x {item.product_name}</span>
                       {item.selected_variant && <span className="block text-[9px] text-neutral-400">Size: {item.selected_variant}</span>}
                     </div>
-                    <span>${(item.price * item.quantity).toFixed(2)}</span>
+                    <span>{(item.price * item.quantity).toFixed(2)} DH</span>
                   </div>
                 ))}
               </div>
@@ -141,21 +141,21 @@ export const Reports: React.FC = () => {
               <div className="space-y-2 border-t pt-4 text-xs font-semibold text-neutral-500">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
-                  <span className="text-neutral-800">${selectedOrder.subtotal.toFixed(2)}</span>
+                  <span className="text-neutral-800">{selectedOrder.subtotal.toFixed(2)} DH</span>
                 </div>
                 {selectedOrder.discount > 0 && (
                   <div className="flex justify-between text-rose-500">
                     <span>Discount Coupon</span>
-                    <span>-${selectedOrder.discount.toFixed(2)}</span>
+                    <span>-{selectedOrder.discount.toFixed(2)} DH</span>
                   </div>
                 )}
                 <div className="flex justify-between">
                   <span>Sales Tax</span>
-                  <span className="text-neutral-800">${selectedOrder.tax.toFixed(2)}</span>
+                  <span className="text-neutral-800">{selectedOrder.tax.toFixed(2)} DH</span>
                 </div>
                 <div className="flex justify-between text-neutral-850 text-sm font-extrabold pt-2 border-t border-dashed">
                   <span>Total Amount Paid</span>
-                  <span>${selectedOrder.total.toFixed(2)}</span>
+                  <span>{selectedOrder.total.toFixed(2)} DH</span>
                 </div>
               </div>
             </div>

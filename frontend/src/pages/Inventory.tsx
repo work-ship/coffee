@@ -146,7 +146,7 @@ export const Inventory: React.FC = () => {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="font-extrabold text-2xl text-neutral-800 tracking-tight">Product Inventory</h1>
-          <p className="text-xs text-neutral-450 font-semibold font-medium">Update prices, stock, and variants</p>
+          <p className="text-xs text-neutral-450 font-semibold font-medium">Update prices and variants</p>
         </div>
         <button
           onClick={() => { resetForm(); setIsFormOpen(true); }}
@@ -190,11 +190,11 @@ export const Inventory: React.FC = () => {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-neutral-450 uppercase tracking-wider mb-1">Price ($)</label>
+                <label className="block text-xs font-semibold text-neutral-450 uppercase tracking-wider mb-1">Price (DH)</label>
                 <input type="number" step="0.01" required value={price} onChange={(e) => setPrice(e.target.value)} className="w-full rounded-xl border border-neutral-200 p-2.5 text-sm" placeholder="4.50" />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-neutral-450 uppercase tracking-wider mb-1">Promo Price ($)</label>
+                <label className="block text-xs font-semibold text-neutral-450 uppercase tracking-wider mb-1">Promo Price (DH)</label>
                 <input type="number" step="0.01" value={discountPrice} onChange={(e) => setDiscountPrice(e.target.value)} className="w-full rounded-xl border border-neutral-200 p-2.5 text-sm" placeholder="3.99" />
               </div>
             </div>
@@ -236,7 +236,7 @@ export const Inventory: React.FC = () => {
                     {editingProduct.variants.map((v) => (
                       <div key={v.id} className="flex justify-between items-center text-xs font-semibold text-neutral-600 bg-neutral-50 p-2 rounded-lg">
                         <span>{v.name}</span>
-                        <span>{v.price_override ? `+$${v.price_override.toFixed(2)}` : "Standard"}</span>
+                        <span>{v.price_override ? `+${v.price_override.toFixed(2)} DH` : "Standard"}</span>
                       </div>
                     ))}
                   </div>
@@ -261,7 +261,7 @@ export const Inventory: React.FC = () => {
                     {editingProduct.extras.map((e) => (
                       <div key={e.id} className="flex justify-between items-center text-xs font-semibold text-neutral-600 bg-neutral-50 p-2 rounded-lg">
                         <span>{e.name}</span>
-                        <span>+${e.price.toFixed(2)}</span>
+                        <span>+{e.price.toFixed(2)} DH</span>
                       </div>
                     ))}
                   </div>
@@ -302,8 +302,8 @@ export const Inventory: React.FC = () => {
                         </div>
                       </td>
                       <td className="px-6 py-4.5 text-neutral-500">{cat?.name || "Uncategorized"}</td>
-                      <td className="px-6 py-4.5">${p.price.toFixed(2)}</td>
-                      <td className="px-6 py-4.5 text-rose-500">{p.discount_price ? `$${p.discount_price.toFixed(2)}` : "-"}</td>
+                      <td className="px-6 py-4.5">{p.price.toFixed(2)} DH</td>
+                      <td className="px-6 py-4.5 text-rose-500">{p.discount_price ? `${p.discount_price.toFixed(2)} DH` : "-"}</td>
                       <td className="px-6 py-4.5">
                         <span className={`h-2.5 w-2.5 rounded-full inline-block mr-2 ${p.availability ? "bg-emerald-500 animate-pulse" : "bg-neutral-300"}`} />
                         {p.availability ? "Active" : "Unavailable"}

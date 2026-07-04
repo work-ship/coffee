@@ -269,7 +269,7 @@ export const CartPanel: React.FC<CartPanelProps> = ({ onSuccess }) => {
                 <div className="flex-1 space-y-2">
                   <div className="flex items-start justify-between gap-2">
                     <h4 className="font-bold text-sm text-neutral-800 dark:text-white line-clamp-1">{item.product.name}</h4>
-                    <span className="font-extrabold text-sm text-neutral-800 dark:text-white flex-shrink-0">${item.totalPrice.toFixed(2)}</span>
+                    <span className="font-extrabold text-sm text-neutral-800 dark:text-white flex-shrink-0">{item.totalPrice.toFixed(2)} DH</span>
                   </div>
                   {(item.selectedVariant || item.selectedExtras.length > 0) && (
                     <div className="text-[10px] text-neutral-400 dark:text-neutral-500 font-semibold space-y-0.5">
@@ -341,11 +341,11 @@ export const CartPanel: React.FC<CartPanelProps> = ({ onSuccess }) => {
 
         {/* Breakdown */}
         <div className="space-y-1.5 text-xs font-semibold text-neutral-500 dark:text-neutral-400">
-          <div className="flex justify-between"><span>Subtotal</span><span className="text-neutral-800 dark:text-white">${subtotal.toFixed(2)}</span></div>
-          {discountAmount > 0 && <div className="flex justify-between text-rose-500"><span>Promo Discount</span><span>-${discountAmount.toFixed(2)}</span></div>}
-          <div className="flex justify-between"><span>Taxes (8%)</span><span className="text-neutral-800 dark:text-white">${tax.toFixed(2)}</span></div>
+          <div className="flex justify-between"><span>Subtotal</span><span className="text-neutral-800 dark:text-white">{subtotal.toFixed(2)} DH</span></div>
+          {discountAmount > 0 && <div className="flex justify-between text-rose-500"><span>Promo Discount</span><span>-{discountAmount.toFixed(2)} DH</span></div>}
+          <div className="flex justify-between"><span>Taxes (8%)</span><span className="text-neutral-800 dark:text-white">{tax.toFixed(2)} DH</span></div>
           <div className="flex justify-between text-neutral-800 dark:text-white text-sm font-extrabold pt-2 border-t border-neutral-200 dark:border-neutral-700">
-            <span>Amount Due</span><span>${total.toFixed(2)}</span>
+            <span>Amount Due</span><span>{total.toFixed(2)} DH</span>
           </div>
         </div>
 
@@ -360,7 +360,7 @@ export const CartPanel: React.FC<CartPanelProps> = ({ onSuccess }) => {
               : "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white checkout-pulse"
           }`}
         >
-          <span>Collect Payment (${total.toFixed(2)})</span>
+          <span>Collect Payment ({total.toFixed(2)} DH)</span>
           {cart.length > 0 && <Key k="P" />}
         </motion.button>
       </div>

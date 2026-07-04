@@ -128,7 +128,7 @@ export const Dashboard: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <StatCard
           label="Revenue Today"
-          value={`$${revenueToday.toFixed(2)}`}
+          value={`${revenueToday.toFixed(2)} DH`}
           subtext="+12.4% vs yesterday"
           icon={<DollarSign className="h-6 w-6 text-orange-600" />}
           iconBg="bg-gradient-to-br from-orange-100 to-amber-50"
@@ -137,14 +137,14 @@ export const Dashboard: React.FC = () => {
         <StatCard
           label="Orders Today"
           value={`${data.transactions.today}`}
-          subtext={`Avg ticket: $${data.aov_today.toFixed(2)}`}
+          subtext={`Avg ticket: ${data.aov_today.toFixed(2)} DH`}
           icon={<ShoppingCart className="h-6 w-6 text-teal-600" />}
           iconBg="bg-gradient-to-br from-teal-100 to-cyan-50"
           delay={0.07}
         />
         <StatCard
           label="Weekly Sales"
-          value={`$${revenueWeek.toFixed(2)}`}
+          value={`${revenueWeek.toFixed(2)} DH`}
           subtext={`${data.transactions.week} total orders`}
           icon={<TrendingUp className="h-6 w-6 text-amber-600" />}
           iconBg="bg-gradient-to-br from-amber-100 to-yellow-50"
@@ -223,7 +223,7 @@ export const Dashboard: React.FC = () => {
                       </Pie>
                       <Tooltip
                         contentStyle={{ borderRadius: 12, border: "1px solid #f0f0f0", fontSize: 12, fontWeight: 600 }}
-                        formatter={(value) => [`$${parseFloat(value as string).toFixed(2)}`, "Sales"]}
+                        formatter={(value) => [`${parseFloat(value as string).toFixed(2)} DH`, "Sales"]}
                       />
                     </PieChart>
                   </ResponsiveContainer>
@@ -270,7 +270,7 @@ export const Dashboard: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-3 text-xs font-bold text-neutral-400 flex-shrink-0">
                     <span className="text-neutral-500">{item.quantity} sold</span>
-                    <span className="text-neutral-800 font-extrabold">${item.revenue.toFixed(2)}</span>
+                    <span className="text-neutral-800 font-extrabold">{item.revenue.toFixed(2)} DH</span>
                   </div>
                 </div>
               ))

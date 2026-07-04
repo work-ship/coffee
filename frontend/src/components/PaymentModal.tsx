@@ -107,7 +107,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                   {cart.map((item) => (
                     <div key={item.cartId} className="flex justify-between text-xs font-semibold text-neutral-600">
                       <span className="line-clamp-1">{item.quantity}x {item.product.name}</span>
-                      <span>${item.totalPrice.toFixed(2)}</span>
+                      <span>{item.totalPrice.toFixed(2)} DH</span>
                     </div>
                   ))}
                 </div>
@@ -115,21 +115,21 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                 <div className="space-y-2 text-sm font-semibold">
                   <div className="flex justify-between text-neutral-500">
                     <span>Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
+                    <span>{subtotal.toFixed(2)} DH</span>
                   </div>
                   {discount > 0 && (
                     <div className="flex justify-between text-rose-500">
                       <span>Discount Coupon</span>
-                      <span>-${discount.toFixed(2)}</span>
+                      <span>-{discount.toFixed(2)} DH</span>
                     </div>
                   )}
                   <div className="flex justify-between text-neutral-500">
                     <span>Tax (8%)</span>
-                    <span>${tax.toFixed(2)}</span>
+                    <span>{tax.toFixed(2)} DH</span>
                   </div>
                   <div className="flex justify-between text-neutral-800 text-lg font-bold pt-2 border-t border-neutral-200">
                     <span>Grand Total</span>
-                    <span>${total.toFixed(2)}</span>
+                    <span>{total.toFixed(2)} DH</span>
                   </div>
                 </div>
 
@@ -246,7 +246,7 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
                     {/* Change calculator feedback */}
                     <div className="p-3.5 bg-neutral-50 rounded-2xl border border-neutral-100 flex items-center justify-between text-sm font-semibold">
                       <span className="text-neutral-500">Change Due</span>
-                      <span className="text-lg font-bold text-neutral-800">${changeToReturn.toFixed(2)}</span>
+                      <span className="text-lg font-bold text-neutral-800">{changeToReturn.toFixed(2)} DH</span>
                     </div>
                   </div>
                 )}

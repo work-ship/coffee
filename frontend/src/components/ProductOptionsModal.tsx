@@ -89,7 +89,7 @@ export const ProductOptionsModal: React.FC<ProductOptionsModalProps> = ({
                 )}
                 <div>
                   <p className="text-sm text-neutral-500">{product.description || "Freshly made to order."}</p>
-                  <p className="mt-1 font-bold text-orange-600 text-lg">${basePrice.toFixed(2)}</p>
+                  <p className="mt-1 font-bold text-orange-600 text-lg">{basePrice.toFixed(2)} DH</p>
                 </div>
               </div>
 
@@ -113,7 +113,7 @@ export const ProductOptionsModal: React.FC<ProductOptionsModalProps> = ({
                           <span className="text-sm">{v.name}</span>
                           <span className="text-xs font-semibold opacity-75">
                             {v.price_override !== null && v.price_override !== undefined && v.price_override > 0
-                              ? `+$${v.price_override.toFixed(2)}`
+                              ? `+${v.price_override.toFixed(2)} DH`
                               : "Standard"}
                           </span>
                         </button>
@@ -149,7 +149,7 @@ export const ProductOptionsModal: React.FC<ProductOptionsModalProps> = ({
                             <span className="text-sm">{e.name}</span>
                           </div>
                           <span className="text-xs font-semibold text-neutral-500">
-                            +${e.price.toFixed(2)}
+                            +{e.price.toFixed(2)} DH
                           </span>
                         </button>
                       );
@@ -163,7 +163,7 @@ export const ProductOptionsModal: React.FC<ProductOptionsModalProps> = ({
             <div className="border-t border-neutral-150 bg-neutral-50 p-6 flex items-center justify-between">
               <div>
                 <span className="block text-xs text-neutral-400 font-medium">Subtotal</span>
-                <span className="text-2xl font-bold text-neutral-800">${currentTotalPrice.toFixed(2)}</span>
+                <span className="text-2xl font-bold text-neutral-800">{currentTotalPrice.toFixed(2)} DH</span>
               </div>
               <button
                 onClick={() => {
